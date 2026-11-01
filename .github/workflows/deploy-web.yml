@@ -1,0 +1,53 @@
+# 웹판 자동 배포: 릴리즈를 게시하면, 거기 첨부한 RockmanXSurvivors_Web_*.zip을 풀어서 GitHub Pages에 올린다.
+# 웹판 파일을 저장소에 커밋하지 않으므로 저장소 기록(용량)이 늘지 않는다.
+# 넣는 위치: 릴리즈 저장소의 .github/workflows/deploy-web.yml
+# 처음 한 번: 저장소 Settings > Pages > Source를 "GitHub Actions"로 설정.
+name: Deploy web build
+
+on:
+  release:
+    types: [published]   # 릴리즈를 게시할 때
+  workflow_dispatch:      # Actions 탭에서 직접 실행(가장 최근 릴리즈로 다시 배포)
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download web zip from release
+        id: zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          if gh release download $TAG --repo "${{ github.repository }}" --pattern 'RockmanXSurvivors_Web_*.zip' --output web.zip; then
+            mkdir -p site
+            unzip -q web.zip -d site
+            touch site/.nojekyll
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "이 릴리즈에는 웹판 zip이 없어 배포하지 않습니다(웹판은 그대로 유지)."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload site
+        if: steps.zip.outputs.found == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        if: steps.zip.outputs.found == 'true'
+        uses: actions/deploy-pages@v4
