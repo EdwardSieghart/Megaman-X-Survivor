@@ -2,6 +2,8 @@
 # 웹판 파일을 저장소에 커밋하지 않으므로 저장소 기록(용량)이 늘지 않는다.
 # 넣는 위치: 릴리즈 저장소의 .github/workflows/deploy-web.yml
 # 처음 한 번: 저장소 Settings > Pages > Source를 "GitHub Actions"로 설정.
+# 2026-11-03: 릴리즈 전용 저장소는 릴리즈마다 커밋이 같아, 커밋 번호를 배포 번호로 쓰는 deploy-pages가
+#   "이미 배포됨"으로 처리하고 새 웹판을 반영하지 않았다. 배포 번호에 실행 번호를 붙여 매번 새로 배포한다(릴리즈 전 커밋 불필요).
 name: Deploy web build
 
 on:
@@ -11,6 +13,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -23,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
     steps:
       - name: Download web zip from release
         id: zip
@@ -35,6 +38,7 @@ jobs:
             mkdir -p site
             unzip -q web.zip -d site
             touch site/.nojekyll
+            echo "올릴 웹판:"; ls site/Build
             echo "found=true" >> "$GITHUB_OUTPUT"
           else
             echo "이 릴리즈에는 웹판 zip이 없어 배포하지 않습니다(웹판은 그대로 유지)."
@@ -42,12 +46,46 @@ jobs:
           fi
 
       - name: Upload site
+        id: upload
         if: steps.zip.outputs.found == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
+      # deploy-pages 대신 직접 배포: 배포 번호 = 커밋 + 실행 번호(같은 커밋이어도 매번 새 배포)
       - name: Deploy to GitHub Pages
-        id: deployment
         if: steps.zip.outputs.found == 'true'
-        uses: actions/deploy-pages@v4
+        uses: actions/github-script@v7
+        env:
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
+        with:
+          script: |
+            let artifactId = Number(process.env.ARTIFACT_ID);
+            if (!artifactId) {   // 출력이 비어 있으면 이번 실행의 github-pages 묶음을 찾아 쓴다
+              const { data: list } = await github.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts', {
+                owner: context.repo.owner, repo: context.repo.repo, run_id: context.runId,
+              });
+              const found = list.artifacts.find(a => a.name === 'github-pages');
+              if (!found) return core.setFailed('올린 웹판 묶음(github-pages)을 찾지 못했습니다.');
+              artifactId = found.id;
+            }
+            const token = await core.getIDToken();
+            const version = `${context.sha}-${context.runId}-${process.env.GITHUB_RUN_ATTEMPT}`;
+            const { data } = await github.request('POST /repos/{owner}/{repo}/pages/deployments', {
+              owner: context.repo.owner, repo: context.repo.repo,
+              artifact_id: artifactId,
+              pages_build_version: version,
+              oidc_token: token,
+            });
+            core.info(`배포 시작: ${version} (ID ${data.id})`);
+            for (let i = 0; i < 60; i++) {
+              await new Promise(r => setTimeout(r, 10000));
+              const { data: st } = await github.request('GET /repos/{owner}/{repo}/pages/deployments/{id}', {
+                owner: context.repo.owner, repo: context.repo.repo, id: data.id,
+              });
+              core.info(`상태: ${st.status}`);
+              if (st.status === 'succeed') { core.info(`완료: ${data.page_url}`); return; }
+              if (['deployment_failed', 'deployment_content_failed', 'deployment_lost', 'deployment_cancelled', 'deployment_attempt_error'].includes(st.status))
+                return core.setFailed(`배포 실패: ${st.status}`);
+            }
+            core.setFailed('배포가 10분 안에 끝나지 않았습니다.');
