@@ -6,3 +6,4 @@ mod/
 linux/prefix/
 linux/logs/
 .venv/
+assets/
