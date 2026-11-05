@@ -1,6 +1,6 @@
 # Megaman X Survivors
 
-[한국어](README.md) | **English**
+[Português](README.md) | **English**
 
 A fan-made survivors-like action game: play as X from Rockman X (Mega Man X) and take on endless waves of enemies.
 

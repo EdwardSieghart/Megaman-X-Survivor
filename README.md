@@ -1,110 +1,110 @@
-# 록맨 X 서바이버즈 (Rockman X Survivors)
+# Rockman X Survivors
 
-**한국어** | [English](README.en.md)
+**Português** | [English](README.en.md)
 
-록맨 X의 엑스가 되어 쏟아지는 적을 상대하는 뱀서류(생존 액션) 팬 게임입니다.
+Um jogo de fãs no estilo survivors (ação de sobrevivência): você é o X de Rockman X e enfrenta as ondas de inimigos que não param de chegar.
 
-> ⚠️ **비공식 팬 게임 · 비영리 배포**
-> 록맨 X(Mega Man X)의 캐릭터, 그림, 음악 등 모든 권리는 **CAPCOM**에 있습니다. 
-> 이 게임은 팬이 비영리 목적으로 만든 2차 창작물이며 CAPCOM과 관계가 없습니다. 판매·유료 배포를 금지합니다.
-
----
-
-## 📥 다운로드
-
-### 👉 [최신 버전 받기 (Releases)](../../releases/latest)
-
-- 페이지 아래 **Assets**에서 `RockmanXSurvivors_….zip` 파일을 받으세요.
-- 이전 버전은 [전체 릴리즈 목록](../../releases)에서 받을 수 있습니다.
+> ⚠️ **Fan game não oficial · Distribuição sem fins lucrativos**
+> Todos os direitos sobre personagens, artes e músicas de Rockman X (Mega Man X) pertencem à **CAPCOM**. 
+> Este jogo é uma obra de fã feita sem fins lucrativos e não tem nenhuma relação com a CAPCOM. É proibido vender ou distribuir de forma paga.
 
 ---
 
-## ▶ 실행 방법
+## 📥 Download
 
-1. 받은 zip 파일을 **압축 해제**합니다. (압축 파일 안에서 바로 실행하면 제대로 동작하지 않습니다)
-2. 압축을 푼 폴더에서 **`RockmanXSurvivors.exe`** 를 실행합니다.
-3. 처음 실행할 때 **"Windows의 PC 보호"** 창이 뜰 수 있습니다.
-   개인이 만든 서명되지 않은 프로그램이라 나오는 안내이니, **추가 정보 → 실행**을 눌러 주세요.
+### 👉 [Baixar a versão mais recente (Releases)](https://github.com/gaho727/rockmanx-survivors/releases/latest)
 
-### 언어
-- PC 언어가 한국어면 한국어로, 아니면 영어로 시작합니다.
-- **환경설정 → 게임 → 언어 변경**에서 언제든 바꿀 수 있습니다.
+- Na parte de baixo da página, em **Assets**, baixe o arquivo `RockmanXSurvivors_….zip`.
+- As versões anteriores estão na [lista completa de releases](https://github.com/gaho727/rockmanx-survivors/releases).
 
-### 권장 환경
-| 항목 | 내용 |
+---
+
+## ▶ Como executar
+
+1. **Extraia** o zip que você baixou. (Executar direto de dentro do arquivo compactado não funciona corretamente.)
+2. Abra o **`RockmanXSurvivors.exe`** da pasta extraída.
+3. Na primeira execução, pode aparecer a janela **"O Windows protegeu o seu computador"**.
+   Esse aviso aparece porque o programa foi feito por uma pessoa e não tem assinatura digital. Clique em **Mais informações → Executar assim mesmo**.
+
+### Idioma
+- Se o idioma do PC for coreano, o jogo abre em coreano; caso contrário, abre em inglês.
+- Você pode mudar quando quiser em **Configurações → Jogo → Alterar idioma**.
+
+### Configuração recomendada
+| Item | Detalhes |
 |---|---|
-| 운영체제 | Windows 10 / 11 (64비트) |
-| 입력 | 키보드(마우스 선택) 또는 엑스박스 호환 게임패드 |
-| 설치 | 필요 없음 (압축 해제 후 바로 실행) |
+| Sistema | Windows 10 / 11 (64 bits) |
+| Entrada | Teclado (mouse opcional) ou controle compatível com Xbox |
+| Instalação | Não precisa (é só extrair e executar) |
 
 ---
 
-## 🎮 조작법
+## 🎮 Controles
 
-| 기능 | 키보드 | 게임패드 |
+| Ação | Teclado | Controle |
 |---|---|---|
-| 이동 | WASD / 방향키 | 왼쪽 스틱 |
-| 공격 | 자동 발사 | 자동 발사 |
-| 대시 | Space / Shift / J | A / RB |
-| 기가어택 | E / K | Y |
-| 레벨업 카드 선택 | ←→ + Enter, 1 · 2 · 3, 마우스 클릭 | 십자키 + A |
-| 레벨업 새로고침 | R | Y |
-| 일시정지 | Esc / P | Start |
-| 시너지 안내 켜기·끄기 | Tab | 왼쪽 스틱 누르기 |
-| 음소거 | M | — |
-| 메뉴 결정 | Enter / Space | A |
-| 메뉴 뒤로 | Esc / Backspace | B |
+| Mover | WASD / setas | Analógico esquerdo |
+| Atacar | Tiro automático | Tiro automático |
+| Dash | Espaço / Shift / J | A / RB |
+| Giga Attack | E / K | Y |
+| Escolher a carta de level-up | ←→ + Enter, 1 · 2 · 3, clique com o mouse | D-pad + A |
+| Sortear de novo as cartas de level-up | R | Y |
+| Pausar | Esc / P | Start |
+| Mostrar ou ocultar as sinergias | Tab | Pressionar o analógico esquerdo |
+| Sem som | M | — |
+| Confirmar no menu | Enter / Espaço | A |
+| Voltar no menu | Esc / Backspace | B |
 
-- 공격 방식은 **환경설정 → 게임**에서 *자동 조준* / *마우스 조준* 중에 고를 수 있습니다.
-- 일시정지 메뉴에서 **계속하기 · 환경설정 · 처음부터 다시 · 타이틀로**를 고를 수 있습니다.
+- O tipo de mira pode ser escolhido entre *mira automática* e *mira com o mouse* em **Configurações → Jogo**.
+- No menu de pausa você encontra **Continuar · Configurações · Recomeçar · Voltar ao título**.
 
 ---
 
-## 💾 세이브 데이터
+## 💾 Dados de save
 
-진행 상황과 환경설정은 자동으로 저장됩니다.
+O progresso e as configurações são salvos automaticamente.
 
 ```
-C:\Users\(사용자 이름)\AppData\LocalLow\RXSFanGame\Rockman X Survivors\save.json
+C:\Users\(nome do usuário)\AppData\LocalLow\RXSFanGame\Rockman X Survivors\save.json
 ```
 
-- 새 버전으로 바꿔도 이 파일은 그대로 유지됩니다.
-- 처음부터 다시 하고 싶다면 메인 메뉴 **환경설정 → 게임 → 진행 초기화**를 누르세요. 환경설정은 유지되고, 초기화 전 파일은 같은 폴더에 백업됩니다.
+- Ao atualizar para uma versão nova, esse arquivo é preservado.
+- Para começar tudo de novo, use **Configurações → Jogo → Zerar progresso** no menu principal. As configurações continuam valendo, e o arquivo anterior é salvo como backup na mesma pasta.
 
-### 삭제 방법
-게임 폴더를 지우면 됩니다. 세이브까지 지우려면 위 경로의 `Rockman X Survivors` 폴더도 함께 지워 주세요.
-
----
-
-## ❓ 자주 묻는 질문
-
-**Q. 실행했는데 바로 꺼져요 / 검은 화면이에요.**
-압축을 완전히 푼 뒤 실행했는지 확인해 주세요. 폴더 안의 다른 파일(`…_Data` 폴더 등)이 함께 있어야 실행됩니다.
-
-**Q. 백신이 실행을 막아요.**
-서명되지 않은 개인 제작 프로그램이라 일부 백신이 의심 파일로 표시할 수 있습니다. 이 저장소의 [릴리즈 페이지](../../releases)에서 받은 파일만 사용해 주세요.
-
-**Q. 창 모드 / 전체 화면을 바꾸고 싶어요.**
-메인 메뉴 또는 일시정지 메뉴의 **환경설정 → 화면 → 화면 모드**에서 바꿀 수 있습니다.
-
-**Q. 배경음악을 바꿀 수 있나요?**
-**환경설정 → 사운드**에서 메인 화면 곡과 게임 곡을 고를 수 있습니다.
-
-**Q. 방송 · 영상에서 플레이하려고 해요.**
-**환경설정 → 사운드 → 스트리머 모드**를 켜면 스트리밍 · 영상에 사용할 수 없는 음원은 무작위 BGM에 포함되지 않습니다. 직접 고른 곡은 그대로 나오니 주의해 주세요.
+### Como apagar
+Basta excluir a pasta do jogo. Para apagar o save também, exclua junto a pasta `Rockman X Survivors` do caminho acima.
 
 ---
 
-## 🐞 버그 제보 · 의견
+## ❓ Perguntas frequentes
 
-- 버그나 의견은 이 저장소의 **[Issues](../../issues)** 에 남겨 주세요.
-- 제보할 때 **버전(릴리즈 이름), 상황, 가능하면 스크린샷**을 함께 적어 주시면 큰 도움이 됩니다.
+**P. Abri o jogo e ele fecha na hora / a tela fica preta.**
+Confira se você extraiu o zip por completo antes de executar. Os outros arquivos da pasta (como a pasta `…_Data`) precisam estar junto do exe.
+
+**P. O antivírus impede a execução.**
+Como é um programa sem assinatura feito por uma pessoa, alguns antivírus podem apontar o arquivo como suspeito. Use apenas arquivos baixados da [página de releases](https://github.com/gaho727/rockmanx-survivors/releases) do projeto.
+
+**P. Quero trocar entre modo janela e tela cheia.**
+Mude em **Configurações → Tela → Modo de tela**, pelo menu principal ou pelo menu de pausa.
+
+**P. Posso trocar as músicas de fundo?**
+Sim. Em **Configurações → Som** você escolhe a música do menu principal e a música do jogo.
+
+**P. Vou jogar em live ou gravar vídeo.**
+Ative **Configurações → Som → Modo streamer**. Assim, as músicas que não podem ser usadas em live ou vídeo ficam de fora do BGM aleatório. As músicas que você escolher manualmente continuam tocando, então tenha cuidado.
 
 ---
 
-## 📜 저작권 및 크레딧
+## 🐞 Reportar bugs · Comentários
 
-- **원작:** 록맨 X 시리즈 (Mega Man X series) © CAPCOM
-- 게임에 사용된 캐릭터, 스프라이트, 효과음, 음악의 권리는 모두 원 저작권자에게 있습니다.
-- 이 게임은 **무료 · 비영리** 팬 게임이며, 권리자의 요청이 있으면 배포를 중단합니다.
-- 게임 프로그램: Reborn / goho727@naver.com
+- Deixe bugs e opiniões nos **[Issues](../../issues)** deste repositório.
+- Informar a **versão (nome da release), o que aconteceu e, se der, um print** ajuda muito.
+
+---
+
+## 📜 Direitos autorais e créditos
+
+- **Obra original:** série Rockman X (Mega Man X series) © CAPCOM
+- Os direitos sobre os personagens, sprites, efeitos sonoros e músicas usados neste jogo pertencem aos seus respectivos titulares originais.
+- Este jogo é um fan game **gratuito e sem fins lucrativos**, e a distribuição será encerrada se quem detém os direitos solicitar.
+- Programação do jogo: Reborn / goho727@naver.com

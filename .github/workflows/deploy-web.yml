@@ -1,20 +1,20 @@
-# 웹판 자동 배포: 릴리즈를 게시하면, 거기 첨부한 RockmanXSurvivors_Web_*.zip을 풀어서 GitHub Pages에 올린다.
-# 웹판 파일을 저장소에 커밋하지 않으므로 저장소 기록(용량)이 늘지 않는다.
-# 넣는 위치: 릴리즈 저장소의 .github/workflows/deploy-web.yml
-# 처음 한 번: 저장소 Settings > Pages > Source를 "GitHub Actions"로 설정.
-# 2026-11-03: 릴리즈 전용 저장소는 릴리즈마다 커밋이 같아 "이미 배포됨"으로 처리되고 새 웹판이 반영되지 않았다.
-# 2026-11-04: 배포 번호에 실행 번호를 붙였더니(커밋이 아닌 값) Pages API가 404를 돌려줬다.
-#   → 배포할 때마다 같은 내용의 빈 커밋을 web-deploy 브랜치에 하나 만들고, 그 커밋 번호로 배포한다.
-#     (main 브랜치·파일은 건드리지 않음. web-deploy 브랜치는 배포용이라 무시해도 됨)
+# Deploy automático da versão web: quando uma release é publicada, pega o RockmanXSurvivors_Web_*.zip anexado a ela, extrai e sobe para o GitHub Pages.
+# Os arquivos da versão web não são commitados no repositório, então o histórico (e o peso dele) não cresce.
+# Onde colocar: .github/workflows/deploy-web.yml do repositório das releases
+# Primeira vez: configure Settings > Pages > Source como "GitHub Actions".
+# 2026-11-03: o repositório só de releases tem o mesmo commit em toda release, então o deploy era tratado como "já publicado" e a nova versão web não aparecia.
+# 2026-11-04: usar o número da execução como número de deploy (um valor que não é commit) fez a Pages API devolver 404.
+#   → a cada deploy é criado um commit vazio, com o mesmo conteúdo, no branch web-deploy, e o deploy usa o número desse commit.
+#     (nada muda no branch main nem nos arquivos; o branch web-deploy é só de deploy, pode ser ignorado)
 name: Deploy web build
 
 on:
   release:
-    types: [published]   # 릴리즈를 게시할 때
-  workflow_dispatch:      # Actions 탭에서 직접 실행(가장 최근 릴리즈로 다시 배포)
+    types: [published]   # quando a release for publicada
+  workflow_dispatch:      # execução manual na aba Actions (redistribui usando a release mais recente)
 
 permissions:
-  contents: write   # 배포용 빈 커밋(web-deploy 브랜치)
+  contents: write   # commit vazio de deploy (branch web-deploy)
   actions: read
   pages: write
   id-token: write
@@ -40,10 +40,10 @@ jobs:
             mkdir -p site
             unzip -q web.zip -d site
             touch site/.nojekyll
-            echo "올릴 웹판:"; ls site/Build
+            echo "Versão web que será publicada:"; ls site/Build
             echo "found=true" >> "$GITHUB_OUTPUT"
           else
-            echo "이 릴리즈에는 웹판 zip이 없어 배포하지 않습니다(웹판은 그대로 유지)."
+            echo "Esta release não tem o zip da versão web, então nada é publicado (a versão atual continua no ar)."
             echo "found=false" >> "$GITHUB_OUTPUT"
           fi
 
@@ -64,14 +64,14 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             let artifactId = Number(process.env.ARTIFACT_ID);
-            if (!artifactId) {   // 출력이 비어 있으면 이번 실행의 github-pages 묶음을 찾아 쓴다
+            if (!artifactId) {   // se a saída vier vazia, procura o pacote github-pages desta execução e usa ele
               const { data: list } = await github.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts', { owner, repo, run_id: context.runId });
               const found = list.artifacts.find(a => a.name === 'github-pages');
-              if (!found) return core.setFailed('올린 웹판 묶음(github-pages)을 찾지 못했습니다.');
+              if (!found) return core.setFailed('Não encontrei o pacote da versão web (github-pages) que foi enviado.');
               artifactId = found.id;
             }
 
-            // 배포 번호로 쓸 새 커밋: 지금 커밋과 내용이 같은 빈 커밋을 web-deploy 브랜치에 만든다
+            // novo commit que serve de número do deploy: um commit vazio, com o mesmo conteúdo do atual, criado no branch web-deploy
             const { data: base } = await github.rest.git.getCommit({ owner, repo, commit_sha: context.sha });
             const { data: commit } = await github.rest.git.createCommit({
               owner, repo, tree: base.tree.sha, parents: [context.sha],
@@ -83,7 +83,7 @@ jobs:
               if (e.status !== 422 && e.status !== 404) throw e;
               await github.rest.git.createRef({ owner, repo, ref: 'refs/heads/web-deploy', sha: commit.sha });
             }
-            core.info(`배포 번호(커밋): ${commit.sha}`);
+            core.info(`Número do deploy (commit): ${commit.sha}`);
 
             const token = await core.getIDToken();
             let data;
@@ -93,16 +93,16 @@ jobs:
               }));
             } catch (e) {
               if (e.status === 404)
-                return core.setFailed('Pages API 404: 저장소 Settings > Pages > Source가 "GitHub Actions"인지 확인해 주세요.');
+                return core.setFailed('Pages API devolveu 404: confirme que em Settings > Pages > Source do repositório está marcado "GitHub Actions".');
               throw e;
             }
-            core.info(`배포 시작 (ID ${data.id})`);
+            core.info(`Deploy iniciado (ID ${data.id})`);
             for (let i = 0; i < 60; i++) {
               await new Promise(r => setTimeout(r, 10000));
               const { data: st } = await github.request('GET /repos/{owner}/{repo}/pages/deployments/{id}', { owner, repo, id: data.id });
-              core.info(`상태: ${st.status}`);
-              if (st.status === 'succeed') { core.info(`완료: ${data.page_url}`); return; }
+              core.info(`Status: ${st.status}`);
+              if (st.status === 'succeed') { core.info(`Concluído: ${data.page_url}`); return; }
               if (['deployment_failed', 'deployment_content_failed', 'deployment_lost', 'deployment_cancelled', 'deployment_attempt_error'].includes(st.status))
-                return core.setFailed(`배포 실패: ${st.status}`);
+                return core.setFailed(`Falha no deploy: ${st.status}`);
             }
-            core.setFailed('배포가 10분 안에 끝나지 않았습니다.');
+            core.setFailed('O deploy não terminou dentro de 10 minutos.');
