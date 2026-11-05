@@ -12,10 +12,10 @@ A fan-made survivors-like action game: play as X from Rockman X (Mega Man X) and
 
 ## 📥 Download
 
-### 👉 [Get the latest version (Releases)](../../releases/latest)
+### 👉 [Get the latest version (Releases)](https://github.com/gaho727/rockmanx-survivors/releases/latest)
 
 - Under **Assets** at the bottom of the page, download the `RockmanXSurvivors_….zip` file.
-- Older versions are available in the [full release list](../../releases).
+- Older versions are available in the [full release list](https://github.com/gaho727/rockmanx-survivors/releases).
 
 ---
 
@@ -82,7 +82,7 @@ Just delete the game folder. To remove your save as well, also delete the `Rockm
 Make sure you fully extracted the zip before running. The other files in the folder (such as the `…_Data` folder) must be next to the exe.
 
 **Q. My antivirus blocks the game.**
-Because it is an unsigned program made by an individual, some antivirus software may flag it as suspicious. Only use files downloaded from this repository's [Releases page](../../releases).
+Because it is an unsigned program made by an individual, some antivirus software may flag it as suspicious. Only use files downloaded from the project's [Releases page](https://github.com/gaho727/rockmanx-survivors/releases).
 
 **Q. How do I switch between windowed and fullscreen?**
 Go to **Settings → Display → Screen Mode** from the main menu or the pause menu.
@@ -97,7 +97,7 @@ Turn on **Settings → Sound → Streamer Mode**. Tracks that can't be used in s
 
 ## 🐞 Bug Reports · Feedback
 
-- Please post bugs and feedback in this repository's **[Issues](../../issues)**.
+- Please post bugs and feedback in the project's original **[Issues](https://github.com/gaho727/rockmanx-survivors/issues)** tracker.
 - Including the **version (release name), what happened, and a screenshot if possible** helps a lot. Reports in English are welcome.
 
 ---

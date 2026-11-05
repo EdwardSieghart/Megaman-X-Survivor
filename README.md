@@ -97,7 +97,7 @@ Ative **Configurações → Som → Modo streamer**. Assim, as músicas que não
 
 ## 🐞 Reportar bugs · Comentários
 
-- Deixe bugs e opiniões nos **[Issues](../../issues)** deste repositório.
+- Deixe bugs e opiniões nas **[Issues](https://github.com/gaho727/rockmanx-survivors/issues)** do repositório original do projeto.
 - Informar a **versão (nome da release), o que aconteceu e, se der, um print** ajuda muito.
 
 ---
