@@ -1,0 +1,8 @@
+# Artefatos de trabalho: nada daqui é conteúdo do repositório.
+game/
+downloads/
+decompiled/
+mod/
+linux/prefix/
+linux/logs/
+.venv/
